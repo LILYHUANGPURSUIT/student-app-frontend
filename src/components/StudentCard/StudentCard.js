@@ -3,11 +3,11 @@ import { FaMinus, FaPlus } from 'react-icons/fa';
 import './StudentCard.css';
 
 const StudentCard = ({ expanded, onClick, student }) => {
-  const { email, company, firstName, lastName, pic, grades, id, skill } =
+  const { email, company, first_name, last_name, pic, grades, id, skill } =
     student;
 
   // Converted the grades to numbers
-  const numericGrades = grades.map((grade) => Number(grade));
+  const numericGrades = grades.map(grade => Number(grade.score));
 
   // Add up all the grades
   // Init total = 0
@@ -21,16 +21,16 @@ const StudentCard = ({ expanded, onClick, student }) => {
   const average = total / numericGrades.length;
 
   console.log(
-    `<StudentCard /> rendered name=${firstName} expanded=${expanded}`
+    `<StudentCard /> rendered name=${first_name} expanded=${expanded}`
   );
   return (
     <div className="StudentCard" key={id}>
       <div className="StudentCard__avatar">
-        <img src={pic} alt={`${firstName} ${lastName}`} />
+        <img src={pic} alt={`${first_name} ${last_name}`} />
       </div>
       <div className="StudentCard__info">
         <h1>
-          {firstName} {lastName}
+          {first_name} {last_name}
         </h1>
         <ul>
           <li>Email: {email}</li>
@@ -41,9 +41,9 @@ const StudentCard = ({ expanded, onClick, student }) => {
         {expanded && (
           <div className="StudentCard__grades">
             <ul>
-              {grades.map((grade, index) => (
-                <li key={`${grade}-${index}`}>
-                  <span>Test {index + 1}</span> <span>{grade}%</span>
+              {grades.map(grade => (
+                <li key={grade.id}>
+                  <span>Test {grade.id + 1}</span> <span>{grade.score}%</span>
                 </li>
               ))}
             </ul>
